@@ -53,6 +53,12 @@ func TestSetGetGo(t *testing.T) {
 	<-q
 }
 
+func Benchmark_Goid(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Goid()
+    }
+}
+
 func Benchmark_Set(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Set("V", 1)

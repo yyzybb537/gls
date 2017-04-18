@@ -36,7 +36,7 @@ func Go(f func()) {
 }
 
 type GlsGroup struct {
-	Group [1023]*GlsData
+	Group [1024]*GlsData
 }
 
 func newGlsGroup() *GlsGroup {

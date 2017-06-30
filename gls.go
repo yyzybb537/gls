@@ -30,8 +30,8 @@ func Go(f func()) {
 		Gls.GetGlsData(parent).GetValues(parent, values)
 		goid := Goid()
 		Gls.GetGlsData(goid).SetValues(goid, values)
+		defer Cleanup()
 		f()
-		Cleanup()
 	}()
 }
 

@@ -2,6 +2,31 @@ package gls
 
 import "testing"
 
+func TestDel(t *testing.T) {
+	Set("Dels", 1)
+	v := Get("Dels").(int)
+	if v != 1 {
+		t.Errorf("V not equal 1")
+	}
+
+	Set("V", 3)
+
+	n := Del("Dels")
+	if n != 1 {
+		t.Errorf("n not equal 1")
+	}
+
+	n = Del("Va")
+	if n != 1 {
+		t.Errorf("n not equal 1")
+	}
+
+	n = Del("V")
+	if n != 0 {
+		t.Errorf("n not equal 0")
+	}
+}
+
 func TestSetGetGo(t *testing.T) {
 	Set("V", 1)
 	v := Get("V").(int)

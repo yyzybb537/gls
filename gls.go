@@ -13,6 +13,11 @@ func Get(key string) interface{} {
 	return Gls.GetGlsData(goid).Get(goid, key)
 }
 
+func Del(key string) int {
+	goid := Goid()
+	return Gls.GetGlsData(goid).Del(goid, key)
+}
+
 func Cleanup() {
 	goid := Goid()
 	Gls.GetGlsData(goid).Cleanup(goid)
@@ -89,6 +94,25 @@ func (this *GlsData) Get(goid int64, key string) interface{} {
 	}
 
 	return values[key]
+}
+
+func (this *GlsData) Del(goid int64, key string) int {
+	this.lock.Lock()
+	defer this.lock.Unlock()
+
+	values, exists := this.data[goid]
+	if !exists {
+		return 0
+	}
+
+	delete(values, key)
+
+	n := len(values)
+	if n == 0 {
+		delete(this.data, goid)
+	}
+
+	return n
 }
 
 func (this *GlsData) Cleanup(goid int64) {

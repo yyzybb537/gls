@@ -2,6 +2,20 @@ package gls
 
 import "testing"
 
+type priKey struct {}
+
+func TestPriKey(t *testing.T) {
+	Set(priKey{}, 1)
+	v := Get(priKey{}).(int)
+	if v != 1 {
+		t.Errorf("V not equal 1")
+	}
+	n := Del(priKey{})
+	if n != 0 {
+		t.Errorf("n not equal 0")
+	}
+}
+
 func TestDel(t *testing.T) {
 	Set("Dels", 1)
 	v := Get("Dels").(int)

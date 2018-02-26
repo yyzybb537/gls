@@ -3,17 +3,17 @@ package gls
 import "github.com/huandu/goroutine"
 import "sync"
 
-func Set(key string, value interface{}) {
+func Set(key interface{}, value interface{}) {
 	goid := Goid()
 	Gls.GetGlsData(goid).Set(goid, key, value)
 }
 
-func Get(key string) interface{} {
+func Get(key interface{}) interface{} {
 	goid := Goid()
 	return Gls.GetGlsData(goid).Get(goid, key)
 }
 
-func Del(key string) int {
+func Del(key interface{}) int {
 	goid := Goid()
 	return Gls.GetGlsData(goid).Del(goid, key)
 }
@@ -71,7 +71,7 @@ func newGlsData() *GlsData {
     }
 }
 
-func (this *GlsData) Set(goid int64, key string, value interface{}) {
+func (this *GlsData) Set(goid int64, key interface{}, value interface{}) {
 	this.lock.Lock()
 	defer this.lock.Unlock()
 
@@ -84,7 +84,7 @@ func (this *GlsData) Set(goid int64, key string, value interface{}) {
 	values[key] = value
 }
 
-func (this *GlsData) Get(goid int64, key string) interface{} {
+func (this *GlsData) Get(goid int64, key interface{}) interface{} {
 	this.lock.RLock()
 	defer this.lock.RUnlock()
 
@@ -96,7 +96,7 @@ func (this *GlsData) Get(goid int64, key string) interface{} {
 	return values[key]
 }
 
-func (this *GlsData) Del(goid int64, key string) int {
+func (this *GlsData) Del(goid int64, key interface{}) int {
 	this.lock.Lock()
 	defer this.lock.Unlock()
 

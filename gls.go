@@ -30,9 +30,9 @@ func Goid() int64 {
 // Copy gls in current goroutine to child goroutine.
 func Go(f func()) {
 	parent := Goid()
+	values := Values{}
+	Gls.GetGlsData(parent).GetValues(parent, values)
 	go func(){
-		values := Values{}
-		Gls.GetGlsData(parent).GetValues(parent, values)
 		goid := Goid()
 		Gls.GetGlsData(goid).SetValues(goid, values)
 		defer Cleanup()

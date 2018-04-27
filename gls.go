@@ -1,6 +1,7 @@
 package gls
 
-import "github.com/huandu/goroutine"
+import _ "github.com/v2pro/plz"
+import goid "github.com/v2pro/plz/gls"
 import "sync"
 
 func Set(key interface{}, value interface{}) {
@@ -24,7 +25,7 @@ func Cleanup() {
 }
 
 func Goid() int64 {
-	return goroutine.GoroutineId()
+	return goid.GoID()
 }
 
 // Copy gls in current goroutine to child goroutine.
